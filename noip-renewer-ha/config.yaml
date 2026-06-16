@@ -1,0 +1,24 @@
+---
+name: noip-renewer-ha
+version: 2026.6.0 dev
+slug: noip-renewer-ha
+description: simao-silva/noip-renewer updated for homeassistant addon credentials input.
+url: "https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-ha"
+init: false
+image: "ghcr.io/habuild/addon-noip-renewer-ha"
+hassio_api: true
+homeassistant_api: true
+boot: manual_only
+arch:
+  - aarch64
+panel_icon: mdi:certificate
+options:
+  NO_IP_USERNAME: "!secret NOIP_Email"
+  NO_IP_PASSWORD: "!secret NOIP_Password"
+  NO_IP_TOTP_KEY: "!secret NOIP_TOTP_KEY"
+  TRANSLATE_ENABLED: "false"
+schema:
+  NO_IP_USERNAME: "str?"
+  NO_IP_PASSWORD: "str?"
+  NO_IP_TOTP_KEY: "str?"
+  TRANSLATE_ENABLED: "str?"
