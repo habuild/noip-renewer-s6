@@ -1,5 +1,6 @@
 # Use base Home Assistant container
-FROM ghcr.io/home-assistant/base:latest 
+ARG BUILD_FROM=ghcr.io/home-assistant/base:latest 
+FROM ${BUILD_FROM}
 
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
 FROM ghcr.io/habuild/noip-renewer:latest@sha256:1cf246d0198dc748ea75ade475407abb05029ab652509d060f71ec0029cb9a72 AS builder
