@@ -53,7 +53,7 @@ rules:
       .github/support.yml
       **/en.yaml
       **/builder.yaml
-      .github/workflows/app-ci.yaml
+      ./.github/workflows/app-ci.yaml
     level: warning
     max: 180
     allow-non-breakable-words: true
