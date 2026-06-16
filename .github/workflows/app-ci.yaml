@@ -1,8 +1,6 @@
 ---
 name: CI
 
-env:
-  MONITORED_FILES: "config.*"
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -143,7 +141,6 @@ jobs:
         uses: creyD/prettier_action@8c18391fdc98ed0d884c6345f03975edac71b8f0   # v4.6
         with:
           prettier_options: . --write **/*.{json,js,md,yaml}
-                            
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
