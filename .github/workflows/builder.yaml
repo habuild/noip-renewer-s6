@@ -1,83 +1,73 @@
 ---
-name: Builder
+name: Build
+
+on:
+  release:
+    types: [published]
 
 env:
-  MONITORED_FILES: "config.yaml config.yml"
-
-# yamllint disable-line rule:truthy
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+  ARCHITECTURES: '["amd64", "aarch64"]'
+  IMAGE_NAME: noip-renewer-ha
 
 permissions:
   contents: read
 
 jobs:
   init:
-    name: Initialize builds
+    name: Initialize build
     runs-on: ubuntu-latest
     outputs:
-      changed: ${{ steps.filter.outputs.changed }}
-      changed_apps: ${{ steps.filter.outputs.changed_apps }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v6.0.3
+      - uses: actions/checkout@v6
 
-      - name: Get changed files
-        id: changed_files
-        uses: tj-actions/changed-files@v47
+      - name: Get build matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.06.0
+        with:
+          architectures: ${{ env.ARCHITECTURES }}
+          image-name: ${{ env.IMAGE_NAME }}
 
-      - name: Find app directories
-        id: apps
-        uses: home-assistant/actions/helpers/find-addons@master
-
-      - name: Filter changed apps
-        id: filter
-        env:
-          APPS: ${{ steps.apps.outputs.addons }}
-          CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
-        run: |
-          changed_apps=()
-
-          # If the workflow file itself changed, rebuild all apps
-          if [[ "${CHANGED_FILES}" =~ \.github/workflows/(builder|build-app)\.yaml ]]; then
-            changed_apps=(${APPS})
-          else
-            for app in ${APPS}; do
-              for file in ${MONITORED_FILES}; do
-                if [[ "${CHANGED_FILES}" =~ ${app}/${file} ]]; then
-                  changed_apps+=("${app}")
-                  break
-                fi
-              done
-            done
-          fi
-
-          if [[ ${#changed_apps[@]} -gt 0 ]]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "changed_apps=$(jq -nc '$ARGS.positional' --args "${changed_apps[@]}")" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
-
-  build-app:
-    name: Build ${{ matrix.app }}
+  build:
+    name: Build ${{ matrix.arch }} image
     needs: init
-    if: needs.init.outputs.changed == 'true'
+    runs-on: ${{ matrix.os }}
     permissions:
-      contents: read
-      id-token: write
-      packages: write
+      contents: read # To check out the code
+      id-token: write # Write needed for Cosign signing (issue OIDC token for signing)
+      packages: write # To push built images to GitHub Container Registry
     strategy:
       fail-fast: false
-      matrix:
-        app: ${{ fromJSON(needs.init.outputs.changed_apps) }}
-    uses: ./.github/workflows/build-app.yaml
-    with:
-      app: ${{ matrix.app }}
-      publish: ${{ github.event_name == 'push' }}
-    secrets: inherit
+      matrix: ${{ fromJSON(needs.init.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build image
+        uses: home-assistant/builder/actions/build-image@2026.06.0
+        with:
+          arch: ${{ matrix.arch }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image: ${{ matrix.image }}
+          image-tags: |
+            ${{ github.event.release.tag_name }}
+            latest
+          push: "true"
+          version: ${{ github.event.release.tag_name }}
+
+  manifest:
+    name: Publish multi-arch manifest
+    needs: [init, build]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Write needed for Cosign signing (issue OIDC token for signing)
+      packages: write # To push the manifest to GitHub Container Registry
+    steps:
+      - name: Publish multi-arch manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@2026.06.0
+        with:
+          architectures: ${{ env.ARCHITECTURES }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: ${{ env.IMAGE_NAME }}
+          image-tags: |
+            ${{ github.event.release.tag_name }}
+            latest
