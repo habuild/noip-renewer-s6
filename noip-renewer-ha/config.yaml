@@ -11,6 +11,7 @@ homeassistant_api: true
 boot: manual_only
 arch:
   - aarch64
+  - amd64
 panel_icon: mdi:certificate
 options:
   NO_IP_USERNAME: "!secret NOIP_Email"
