@@ -5,7 +5,7 @@ slug: noip-renewer-ha
 description: simao-silva/noip-renewer updated for homeassistant addon credentials input.
 url: "https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-ha"
 init: false
-image: ghcr.io/habuild/noip-renewer-ha
+image: "ghcr.io/habuild/app_noip-renewer-ha"
 hassio_api: true
 homeassistant_api: true
 boot: manual_only
