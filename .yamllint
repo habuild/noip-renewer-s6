@@ -51,11 +51,9 @@ rules:
   line-length:
     ignore: |
       .github/support.yml
-      hassio-addons/haos-sbfspot/translations/en.yaml
       **/en.yaml
       **/builder.yaml
-      **/workflows/app-ci.yaml
-      **/haos-sbfspot-sensorsgen/config.yaml
+      .github/workflows/app-ci.yaml
     level: warning
     max: 180
     allow-non-breakable-words: true
