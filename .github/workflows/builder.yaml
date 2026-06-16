@@ -34,7 +34,7 @@ jobs:
     needs: init
     runs-on: ${{ matrix.os }}
     permissions:
-      contents: read # To check out the code
+      contents: read   # To check out the code
       id-token: write   # Write needed for Cosign signing (issue OIDC token for signing)
       packages: write   # To push built images to GitHub Container Registry
     strategy:
