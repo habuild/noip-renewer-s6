@@ -76,4 +76,4 @@ jobs:
           image-name: ${{ env.IMAGE_NAME }}
           image-tags: |
             ${{ github.event.release.tag_name }}
-            latest 
+            latest
