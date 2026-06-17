@@ -212,7 +212,7 @@ jobs:
       - name: 🚀 Build
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf   # v7.2.0
         with:
-          push: false
+          push: true
           # zizmor: ignore[template-injection] - path input to action, not shell-executed
           context: ${{ needs.information.outputs.target }}
           file: ${{ needs.information.outputs.target }}/Dockerfile
