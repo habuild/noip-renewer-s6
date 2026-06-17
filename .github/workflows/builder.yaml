@@ -1,8 +1,6 @@
 ---
 name: Build
 
-env:
-  MONITORED_FILES: "config.*"
 # yamllint disable-line rule:truthy
 on:
   push:
@@ -13,8 +11,9 @@ on:
 
 env:
   ARCHITECTURES: '["amd64", "aarch64"]'
-  IMAGE_NAME: noip-renewer-ha
-
+  # IMAGE_NAME: noip-renewer-ha
+  MONITORED_FILES: "config.*"
+  
 permissions:
   contents: read
 
