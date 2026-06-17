@@ -10,9 +10,10 @@ on:
     paths: ["config.*", "pushed"]
   release:
     types: [published]
+
 env:
   ARCHITECTURES: '["amd64", "aarch64"]'
-  BUILD_ARGS:
+  
   IMAGE_NAME: noip-renewer-ha
 
 permissions:
@@ -53,6 +54,7 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: "./${{ needs.information.outputs.target }}/Dockerfile"
           image: ${{ matrix.image }}
           image-tags: |
             ${{ github.event.release.tag_name }}
