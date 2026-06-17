@@ -13,7 +13,7 @@ env:
   ARCHITECTURES: '["amd64", "aarch64"]'
   # IMAGE_NAME: noip-renewer-ha
   MONITORED_FILES: "config.*"
-  
+
 permissions:
   contents: read
 
