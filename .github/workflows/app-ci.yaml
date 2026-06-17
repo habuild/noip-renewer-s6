@@ -7,7 +7,7 @@ on:
     branches:
       - dev
       - main
-    paths: ["/config.*", "pushed"]
+    paths: ["noip-renewer-ha/config.*", "pushed"]
   workflow_call:
     inputs:
       slug:
