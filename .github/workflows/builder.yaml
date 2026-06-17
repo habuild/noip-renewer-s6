@@ -4,8 +4,8 @@ name: Build
 # yamllint disable-line rule:truthy
 on:
   release:
-    types: 
-       - published
+    types:
+      - published
 
 env:
   ARCHITECTURES: '["amd64", "aarch64"]'
