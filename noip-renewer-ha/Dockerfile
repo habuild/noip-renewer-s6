@@ -10,7 +10,7 @@ FROM ${BUILD_FROM}
 
 # hadolint ignore=DL3007
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
-FROM ghcr.io/habuild/noip-renewer:latest@sha256:1cf246d0198dc748ea75ade475407abb05029ab652509d060f71ec0029cb9a72 AS builder
+FROM FROM ghcr.io/habuild/noip-renewer:latest AS builder
 
 #ENV NO_IP_USERNAME="Email" \
 #    NO_IP_PASSWORD="Password" \
