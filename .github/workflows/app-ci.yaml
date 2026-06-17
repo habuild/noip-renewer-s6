@@ -1,14 +1,13 @@
 ---
 name: CI
 
-env:
-  MONITORED_FILES: "config.*"
 # yamllint disable-line rule:truthy
 on:
   push:
     branches:
       - dev
       - main
+    paths: ["config.*", "pushed"]  
   workflow_call:
     inputs:
       slug:
