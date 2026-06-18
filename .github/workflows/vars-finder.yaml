@@ -21,7 +21,7 @@ jobs:
         run: echo "The var is $GITHUB_REF_NAME"
 
       - name: Display Vars via Github Context
-        run: echo "The Var is ${{ github.ref_name }}"
+        run: echo "The Var is ${{ github.event.release.tag_name }}"
 
       - name: Display Build_REF
         run: echo "The var is ${{ env.BUILD_ARGS }} "
