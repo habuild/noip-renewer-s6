@@ -42,6 +42,7 @@ These can be added either as secrets in your secrets.yaml or directly into the G
 I use an **automation to start it,** which triggers via an [IMAP sensor](https://www.home-assistant.io/integrations/imap/)
 
 ```
+#### Automation to Start container
 alias: NOIP Expiring
 description: NOIP expiring confirm hosts
 triggers:
@@ -57,18 +58,47 @@ conditions:
       trigger.event.data['subject'] }}
 actions:
   - action: hassio.app_start            ##### Action to start the container
+    metadata: {}                        ##### This is provided by Supervisor Integration (Devices and Services).
+    data:                               ##### May need to be enabled the first time.
+      app: 76aa2759_noip-renewer-ha    
+ 
+mode: single
+
+```
+
+This Automation is the notification
+
+```
+alias: NOIP Fire Notify
+description: ""
+triggers:
+  - trigger: state
+    entity_id:                                    ##### Binary Sensor from Supervisor
+      - binary_sensor.noip_renewer_ha_running     ##### This is provided by Supervisor Integration (Devices and Services).
+    from:                                         ##### May need to be enabled the first time.
+      - "on"
+    to:
+      - "off"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+conditions: []
+actions:
+  - action: homeassistant.update_entity
     metadata: {}
     data:
-      app: e28361c6_noip-renewer
-  - delay:                              ##### Delay to allow the container to start
-      hours: 0                          ##### Simao's container command to run (this takes quite some time)
-      minutes: 2
-      seconds: 0
+      entity_id:
+        - sensor.noip_renewer_log
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
       milliseconds: 0
-  - metadata: {}                        ##### Persistant notification to your HA bell notify
+  - metadata: {}
     data:
       message: >-
-        NOIP hostnames have been triggered. Check if completed successfully.
+        NOIP hostnames have been triggered. Check if completed successfully. 
 
 
         {% for packages, value in
@@ -79,7 +109,6 @@ actions:
 mode: single
 
 ```
-
 ---
 
 I use a SSH [command line sensor](https://www.home-assistant.io/integrations/command_line/#sensor) to send data to the persistant notification.
@@ -145,7 +174,7 @@ actions:
   - metadata: {}
     data: {}
     target:
-      entity_id: sensor.noip_renewer
+      entity_id: sensor.noip_renewer_log
     action: homeassistant.update_entity
   - metadata: {}
     data:
