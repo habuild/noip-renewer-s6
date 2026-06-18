@@ -57,7 +57,7 @@ jobs:
             ${{ github.ref_name }}
             latest
           push: "true"
-          version: ${{ github.ref_name }}   ### ${{ github.event.release.tag_name }}" for published events
+          version: ${{ github.event.release.tag_name }}   ### ${{ github.event.release.tag_name }}" for published events or github.ref_name?? for push
 
   manifest:
     name: Publish multi-arch manifest
@@ -75,5 +75,5 @@ jobs:
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
           image-name: ${{ env.IMAGE_NAME }}
           image-tags: |
-            ${{ github.ref_name }}
+            ${{ github.event.release.tag_name }}
             latest
