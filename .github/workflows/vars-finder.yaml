@@ -1,0 +1,25 @@
+---
+name: vars-finder
+
+on:
+  push:
+    branches:
+      - main
+    paths: ["vars"]
+
+env:
+  BUILD_ARGS: |
+          
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Vars via Env Var
+        run: echo "The var is $GITHUB_REF_NAME"
+
+      - name: Display Vars via Github Context
+        run: echo "The Var is ${{ github.ref_name }}"
+
+      - name: Display Build_REF
+        run: echo "The var is ${{ env.BUILD_REF }} "
