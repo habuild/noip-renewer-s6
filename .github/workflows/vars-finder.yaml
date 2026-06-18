@@ -24,15 +24,6 @@ jobs:
         run: echo "The Var is ${{ github.ref_name }}"
 
       - name: Display Build_REF
-        run: echo "The var is ${{ env.BUILD_REF }} "
+        run: echo "The var is ${{ env.BUILD_ARGS }} "
     
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      # This dynamically loops and logs every variable defined in your env context
-      - name: Echo All Docker Build Args
-        run: |
-          echo "=== Active Docker Build Arguments ==="
-          for var in APP_VERSION ENVIRONMENT API_URL; do
-            echo "$var=${{!env[$var]}}"
-          done   
+      
