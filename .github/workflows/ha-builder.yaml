@@ -1,22 +1,23 @@
 ---
 # yamllint disable rule:line-length
-name: Build
+name: HA-Build
 
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
       - main
     paths: ["pushed"]
- # release:
+ #  release:
  #   types: [published]
 
 env:
-  BUILD_ARGS: 
+  BUILD_ARGS:
   MONITORED_FILES: "config.*"
   # IMAGE_NAME:   ### set by ${{ matrix.addon }} in get build matrix lines 67-72
   ARCHITECTURES: '["amd64", "aarch64"]'
-  
-  
+
+
 permissions:
   contents: read
 
