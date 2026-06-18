@@ -52,7 +52,7 @@ jobs:
         uses: home-assistant/builder/actions/build-image@2026.06.0
         with:
           context: ./noip-renewer-ha   ### repo folder
-          file: ./.${{ github.event.repository.name }}/Dockerfile  ### App/Addon folder
+          file: ./noip-renewer-ha/Dockerfile  ### App/Addon folder
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
           image: ${{ matrix.image }}
