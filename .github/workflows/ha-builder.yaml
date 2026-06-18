@@ -2,19 +2,21 @@
 # yamllint disable rule:line-length
 name: Build
 
-# yamllint disable-line rule:truthy
 on:
   push:
     branches:
       - main
-    paths: ["config.*", "pushed"]
-  release:
-    types: [published]
+    paths: ["pushed"]
+ # release:
+ #   types: [published]
 
 env:
+  BUILD_ARGS: 
+  MONITORED_FILES: "config.*"
+  # IMAGE_NAME:   ### set by ${{ matrix.addon }} in get build matrix lines 67-72
   ARCHITECTURES: '["amd64", "aarch64"]'
-  IMAGE_NAME: noip-renewer-ha
-
+  
+  
 permissions:
   contents: read
 
@@ -24,15 +26,51 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
+      changed_addons: ${{ steps.changed_addons.outputs.addons }}
+      changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - uses: actions/checkout@v6
+
+      - name: Get changed files
+        id: changed_files
+        uses: jitterbit/get-changed-files@v1
+
+      - name: Find add-on directories
+        id: addons
+        uses: home-assistant/actions/helpers/find-addons@master
+
+      - name: Get changed add-ons
+        id: changed_addons
+        run: |
+          declare -a changed_addons
+          for addon in ${{ steps.addons.outputs.addons }}; do
+            if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon ]]; then
+              for file in ${{ env.MONITORED_FILES }}; do
+                  if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon/$file ]]; then
+                    if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
+                      changed_addons+=("\"${addon}\",");
+                    fi
+                  fi
+              done
+            fi
+          done
+
+          changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
+
+          if [[ -n ${changed} ]]; then
+            echo "Changed add-ons: $changed";
+            echo "::set-output name=changed::true";
+            echo "::set-output name=addons::[$changed]";
+          else
+            echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
+          fi
 
       - name: Get build matrix
         id: matrix
         uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.06.0
         with:
           architectures: ${{ env.ARCHITECTURES }}
-          image-name: ${{ env.IMAGE_NAME }}
+          image-name: ${{ matrix.addon }}
 
   build:
     name: Build ${{ matrix.arch }} image
@@ -53,7 +91,6 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
-          file: "./${{ needs.information.outputs.target }}/Dockerfile"
           image: ${{ matrix.image }}
           image-tags: |
             ${{ github.event.release.tag_name }}
@@ -74,7 +111,7 @@ jobs:
         with:
           architectures: ${{ env.ARCHITECTURES }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
-          image-name: ${{ env.IMAGE_NAME }}
+          image-name: ${{ matrix.addon }}
           image-tags: |
             ${{ github.event.release.tag_name }}
             latest
