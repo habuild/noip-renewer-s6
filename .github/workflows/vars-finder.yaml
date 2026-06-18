@@ -15,7 +15,7 @@ env:
           BUILD_ARCH
           BUILD_NAME
           BUILD_VERSION
-          
+          BUILD_REPOSITORY
 
 jobs:
   build:
@@ -31,7 +31,10 @@ jobs:
         run: echo "The var is $env.IMAGE_NAME "
 
       - name: Display Vars via  github.workspace 
-        run: echo "The var is ${{ github.workspace }} "   
+        run: echo "The var is ${{ github.workspace }} "
+
+      - name: Display Vars via  BUILD_REPOSITORY
+        run: echo "The var is ${{ github.workspace }} "  
 
       - name: Display Vars via  env.IMAGE_NAME /Dockerfile
         run: echo "The var is ./.${{ env.IMAGE_NAME }}/Dockerfile "  
