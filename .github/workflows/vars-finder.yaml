@@ -24,7 +24,15 @@ jobs:
       - name: Display Vars via Env Var
         run: echo "The var is $GITHUB_REF_NAME"
 
-      - name: Display Vars via Github Context
+      - name: Display Vars via Github Context github.event.release.tag_name
         run: echo "The Var is ${{ github.event.release.tag_name }}"
 
+      - name: Display Vars via Env Var env.IMAGE_NAME
+        run: echo "The var is $env.IMAGE_NAME "
+
+      - name: Display Vars via  github.workspace 
+        run: echo "The var is ${{ github.workspace }} "   
+
+      - name: Display Vars via  env.IMAGE_NAME /Dockerfile
+        run: echo "The var is ./.${{ env.IMAGE_NAME }}/Dockerfile "  
       
