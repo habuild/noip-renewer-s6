@@ -11,7 +11,11 @@ on:
       
 env:
   BUILD_ARGS: |
-          BUILD_REF 
+          $BUILD_REF
+          $BUILD_ARCH
+          $BUILD_NAME
+          $BUILD_VERSION
+          
 
 jobs:
   build:
@@ -23,7 +27,17 @@ jobs:
       - name: Display Vars via Github Context
         run: echo "The Var is ${{ github.event.release.tag_name }}"
 
+      - name: Display Build_ARG
+        run: echo "The var is ${{ $BUILD_ARGS }} "
+
       - name: Display Build_REF
-        run: echo "The var is ${{ env.BUILD_ARGS }} "
-    
-      
+        run: echo "The var is ${{ $BUILD_REF }} "
+
+      - name: Display BUILD_ARCH
+        run: echo "The var is ${{ $BUILD_ARCH }} "
+
+      - name: Display BUILD_NAME
+        run: echo "The var is ${{ $BUILD_NAME }} "
+
+      - name: Display BUILD_NAME
+        run: echo "The var is ${{ $BUILD_VERSION }} "
