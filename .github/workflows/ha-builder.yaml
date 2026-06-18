@@ -89,7 +89,7 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
-          image: ${{ matrix.image }}
+          image: ${{ matrix.addon }}   ## ${{ matrix.image }}
           image-tags: |
             ${{ github.event.release.tag_name }}
             latest
