@@ -27,17 +27,4 @@ jobs:
       - name: Display Vars via Github Context
         run: echo "The Var is ${{ github.event.release.tag_name }}"
 
-      - name: Display Build_ARG
-        run: echo "The var is ${{ BUILD_ARGS }} "
-
-      - name: Display Build_REF
-        run: echo "The var is ${{ BUILD_REF }} "
-
-      - name: Display BUILD_ARCH
-        run: echo "The var is ${{ BUILD_ARCH }} "
-
-      - name: Display BUILD_NAME
-        run: echo "The var is ${{ BUILD_NAME }} "
-
-      - name: Display BUILD_NAME
-        run: echo "The var is ${{ BUILD_VERSION }} "
+      
