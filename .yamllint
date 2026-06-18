@@ -55,6 +55,8 @@ rules:
       **/builder.yaml
       ./.github/workflows/app-ci.yaml
       ./.github/workflows/builder.yaml
+      ./.github/workflows/ha-app-ci.yaml
+      ./.github/workflows/ha-builder.yaml
     level: warning
     max: 180
     allow-non-breakable-words: true
