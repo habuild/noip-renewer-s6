@@ -51,7 +51,7 @@ jobs:
       - name: Build image
         uses: home-assistant/builder/actions/build-image@2026.06.0
         with:
-          context: ./.${{ matrix.image }}   ### repo folder
+          context: ./noip-renewer-ha   ### repo folder
           file: ./.${{ github.event.repository.name }}/Dockerfile  ### App/Addon folder
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
