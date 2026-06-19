@@ -109,6 +109,10 @@ actions:
 mode: single
 
 ```
+
+<img width="671" height="382" alt="Supervisor Integration" src="https://github.com/user-attachments/assets/75775945-d777-467b-afb0-e150674a274b" />
+
+
 ---
 
 I use a SSH [command line sensor](https://www.home-assistant.io/integrations/command_line/#sensor) to send data to the persistant notification.
