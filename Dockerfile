@@ -12,6 +12,13 @@ FROM ${BUILD_FROM}
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
 FROM docker.io/habuild/noip-renewer-base:latest@sha256:2d87f0d13a671814ee5f359b6b07135ee836ba64c2baed255cbfdc038515c6e0 AS builder
 
+WORKDIR /app
+
+# Copy addon root filesystem and then set permissions of all files. 
+COPY rootfs /
+
+RUN chmod -Rv a+x /app/**
+
 #ENV NO_IP_USERNAME="Email" \
 #    NO_IP_PASSWORD="Password" \
 #    NO_IP_TOTP_KEY="NOIP_TOTP_KEY" \
