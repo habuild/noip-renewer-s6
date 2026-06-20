@@ -1,6 +1,6 @@
 ---
 name: "noip-renewer-ha"
-version: 2026.06.16
+version: 2026.06.17
 slug: "noip-renewer-ha"
 description: "simao-silva/noip-renewer updated for homeassistant addon credentials inputs."
 url: "https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-ha"
