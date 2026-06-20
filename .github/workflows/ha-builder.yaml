@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-    paths: ["pushed", "noip-renewer-s6/pulled"]
+    paths: ["pushed"]
   release:
     types: [published]
 
