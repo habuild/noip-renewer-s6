@@ -1,5 +1,5 @@
 ---
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
 name: No-IP Host Renewer
-url: "https://github.com/habuild/noip-renewew-ha"
+url: "https://github.com/habuild/noip-renewew-s6"
 maintainer: HasQT <https://community.home-assistant.io/u/hasqt>
