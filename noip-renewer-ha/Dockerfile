@@ -10,7 +10,7 @@ FROM ${BUILD_FROM}
 
 # hadolint ignore=DL3007
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
-FROM docker.io/simao-silva/noip-renewer:latest AS builder
+FROM docker.io/simaofsilva/noip-renewer:latest AS builder
 
 WORKDIR /app
 
