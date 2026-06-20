@@ -82,12 +82,30 @@ def HA_addon_options():
         print(local_dt.strftime("%Y-%m-%d %H:%M:%S %Z %z"))
 
         """
-        # Verification. not needed active
+        # Verification of file inputs. not needed active
         """
-        print(os.environ.get("NO_IP_USERNAME"))  # Outputs: User@Email.com
-        print(os.environ.get("NO_IP_PASSWORD"))
-        print(os.environ.get("NO_IP_TOTP_KEY"))
-        print(os.environ.get("TRANSLATE_ENABLED"))
+        print('Email:', os.environ.get('NO_IP_USERNAME'))  # Outputs: User@Email.com
+        
+        # The dynamic switch (True means show text, False means mask text)
+        show_pass = (os.getenv('SHOW_PASS')) == 'true'
+        
+        # Check the dynamic switch
+        text_pass = (os.getenv('NO_IP_PASSWORD'))
+        
+        if show_pass:
+            print('Password:', text_pass)
+        else:
+            print('Password:', "*" * len(text_pass))
+        
+        # Check the dynamic switch    
+        text_totp = (os.getenv('NO_IP_TOTP_KEY'))
+        
+        if show_pass:
+            print('TOTP Key:', text_totp)
+        else:
+            print('TOTP Key:', "*" * len(text_totp))
+            
+        print('Translating No-IP website:', os.environ.get('TRANSLATE_ENABLED'))
     else:
         pass
 HA_addon_options()
