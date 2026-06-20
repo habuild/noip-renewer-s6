@@ -10,8 +10,8 @@ on:
     paths: ["pushed", "noip-renewer-s6/pushed"]
     tags:
       - '*'
-  release:
-    types: [published]
+    # release:
+    # types: [published]
 
 env:
   IMAGE_NAME: ${{ github.event.repository.name }}
