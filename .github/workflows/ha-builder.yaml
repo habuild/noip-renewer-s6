@@ -8,6 +8,8 @@ on:
     branches:
       - main
     paths: ["pushed", "noip-renewer-s6/pushed"]
+    tags:
+      - '*'
   release:
     types: [published]
 
