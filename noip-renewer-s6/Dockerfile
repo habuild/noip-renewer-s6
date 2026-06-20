@@ -15,11 +15,7 @@ FROM docker.io/simaofsilva/noip-renewer:latest AS builder
 # Copy addon root filesystem and then s6 and apparmor.txt should set permissions of all files. 
 COPY rootfs /
 
-
-#ENV NO_IP_USERNAME="Email" \
-#    NO_IP_PASSWORD="Password" \
-#    NO_IP_TOTP_KEY="NOIP_TOTP_KEY" \
-#    TRANSLATE_ENABLED="false"
+ENTRYPOINT ["/init"]
 
 
 # Build arguments    <<<< Need to remove this to build or add to build_arch to ignore builder
@@ -44,7 +40,7 @@ LABEL \
     org.opencontainers.image.vendor="Hasqt" \
     org.opencontainers.image.authors="Hasqt <https://community.home-assistant.io/u/hasqt>" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-s6" \
+    org.opencontainers.image.url="https://github.com/habuild/noip-renewer-s6/tree/main/noip-renewer-s6" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/tree/main/noip-renewer-s6/README.md" \
     org.opencontainers.image.created="${BUILD_DATE}" \
