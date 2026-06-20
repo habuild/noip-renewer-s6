@@ -1,1 +1,7 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
 
+workdir /app
+
+CMD ["python3", "renew.py"]
