@@ -11,14 +11,9 @@ FROM ghcr.io/home-assistant/base:latest
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
 FROM docker.io/simaofsilva/noip-renewer:latest AS builder
 
-WORKDIR /app
 
-# Copy addon root filesystem and then set permissions of all files. 
+# Copy addon root filesystem and then s6 and apparmor.txt should set permissions of all files. 
 COPY rootfs /
-
-RUN chmod -Rv a+x \
-    /etc/cont-init.d/** \
-    /etc/s6-overlay/s6-rc.d/**
 
 
 #ENV NO_IP_USERNAME="Email" \
