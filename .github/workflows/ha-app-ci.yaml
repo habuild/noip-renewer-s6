@@ -230,3 +230,6 @@ jobs:
             BUILD_REF=${{ github.sha }}
             BUILD_REPOSITORY=${{ github.repository }}
             BUILD_VERSION=edge
+            image-tags: |
+            ${{ github.event.release.tag_name }}
+            latest
