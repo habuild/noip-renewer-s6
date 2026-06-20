@@ -17,7 +17,9 @@ COPY rootfs /
 
 RUN chmod -Rv a+x /etc/cont-init.d/** /etc/services.d/**
 
-ENTRYPOINT ["/etc/cont-init.d/noip-options.py"]
+WORKDIR /etc/cont-init.d
+
+ENTRYPOINT ["python3", "noip-options.py"]
 
 
 # Build arguments    <<<< Need to remove this to build or add to build_arch to ignore builder
