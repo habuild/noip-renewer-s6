@@ -36,7 +36,6 @@ docker run --rm --env NO_IP_USERNAME=<EMAIL> --env NO_IP_PASSWORD=<PASSWORD> --e
 
 These can be added either as secrets in your secrets.yaml or directly into the GUI in Home Assistant.
 
-
 ```
 ### NOIP settings for secrets.yaml
 NOIP_Email: youremail@email.com

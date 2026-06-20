@@ -1,22 +1,22 @@
 ---
 configuration:
-    NO_IP_USERNAME:
-        name: No-IP Username (email address)
-        description: >-
-          Enter you No-IP email address or !secret NOIP_Email
-    SHOW_PASS:
-        name: Show Sensitive Info
-        description: >-
-          Show/Hide your Password and TOTP key in the logview.
-    NO_IP_PASSWORD:
-        name: No-IP Password
-        description: >-
-          Enter No-IP password or !secret NOIP_Password
-    NO_IP_TOTP_KEY:
-        name: No-IP TOTP Key 
-        description: >-
-          Enter No-IP TOTP Key or !secret NOIP_TOTP_KEY (Key is from the No-IP website)
-    TRANSLATE_ENABLED:
-        name: TRANSLATE ENABLED default FALSE
-        description: >-
-          Script assumes English No-IP website - See known Issues https://github.com/simao-silva/noip-renewer
+  NO_IP_USERNAME:
+    name: No-IP Username (email address)
+    description: >-
+      Enter you No-IP email address or !secret NOIP_Email
+  SHOW_PASS:
+    name: Show Sensitive Info
+    description: >-
+      Show/Hide your Password and TOTP key in the logview.
+  NO_IP_PASSWORD:
+    name: No-IP Password
+    description: >-
+      Enter No-IP password or !secret NOIP_Password
+  NO_IP_TOTP_KEY:
+    name: No-IP TOTP Key
+    description: >-
+      Enter No-IP TOTP Key or !secret NOIP_TOTP_KEY (Key is from the No-IP website)
+  TRANSLATE_ENABLED:
+    name: TRANSLATE ENABLED default FALSE
+    description: >-
+      Script assumes English No-IP website - See known Issues https://github.com/simao-silva/noip-renewer
