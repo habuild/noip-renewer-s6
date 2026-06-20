@@ -3,7 +3,7 @@ name: "noip-renewer-s6"
 version: 2026.06.1
 slug: "noip-renewer-s6"
 description: "simao-silva/noip-renewer updated for homeassistant addon credentials inputs."
-url: "https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-s6"
+url: "https://github.com/habuild/noip-renewer-s6/tree/main/noip-renewer-s6"
 init: false
 image: "ghcr.io/habuild/noip-renewer-s6"
 hassio_api: true
