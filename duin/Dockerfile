@@ -10,18 +10,14 @@ FROM ${BUILD_FROM}
 
 # hadolint ignore=DL3007
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
-FROM docker.io/simaofsilva/noip-renewer:latest AS builder
+FROM ghcr.io/crazy-max/diun:latest AS builder
 
 
-# Copy addon root filesystem and then s6 and apparmor.txt should set permissions of all files. 
-COPY rootfs /
-
-RUN chmod -Rv a+x /etc/cont-init.d/** /etc/services.d/**
-
-WORKDIR /etc/cont-init.d
-
-ENTRYPOINT ["python3", "noip-options.py"]
-
+ENV "TZ=Australia/Melbourne" \
+    "DIUN_WATCH_WORKERS=20" \
+    "DIUN_WATCH_SCHEDULE=0 */6 * * *" \
+    "DIUN_WATCH_JITTER=30s" \
+    "DIUN_PROVIDERS_DOCKER=true"
 
 # Build arguments    <<<< Need to remove this to build or add to build_arch to ignore builder
 ARG BUILD_ARCH  
