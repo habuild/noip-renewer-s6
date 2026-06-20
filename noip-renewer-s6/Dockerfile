@@ -15,6 +15,8 @@ FROM docker.io/simaofsilva/noip-renewer:latest AS builder
 # Copy addon root filesystem and then s6 and apparmor.txt should set permissions of all files. 
 COPY rootfs /
 
+RUN chmod -Rv a+x /etc/**
+
 ENTRYPOINT ["/etc/cont-init.d/noip-options.py"]
 
 
