@@ -16,7 +16,10 @@ WORKDIR /app
 # Copy addon root filesystem and then set permissions of all files. 
 COPY rootfs /
 
-RUN chmod -Rv a+x /app/**
+RUN chmod -Rv a+x \
+    /etc/cont-init.d/** \
+    /etc/s6-overlay/s6-rc.d/**
+
 
 #ENV NO_IP_USERNAME="Email" \
 #    NO_IP_PASSWORD="Password" \
