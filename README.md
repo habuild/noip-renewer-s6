@@ -35,11 +35,20 @@ docker run --rm --env NO_IP_USERNAME=<EMAIL> --env NO_IP_PASSWORD=<PASSWORD> --e
 - NO_IP_TOTP_KEY
 
 These can be added either as secrets in your secrets.yaml or directly into the GUI in Home Assistant.
+
+
+```
+### NOIP settings for secrets.yaml
+NOIP_Email: youremail@email.com
+NOIP_Password: YourPassWord
+NOIP_TOTP_KEY: Your_TOTP_key
+```
+
 <img width="500" height="569" alt="noip-config-page" src="https://github.com/user-attachments/assets/69ef29ca-3ff4-4b16-b34c-e386b7cd3a27" />
 
 **The container runs one cycle per start and then logs off and exits.**
 
-I use an **automation to start it,** which triggers via an [IMAP sensor](https://www.home-assistant.io/integrations/imap/)
+Use an **automation to start it,** which triggers via an [IMAP sensor](https://www.home-assistant.io/integrations/imap/)
 
 ```
 #### Automation to Start container
@@ -114,7 +123,7 @@ mode: single
 
 ---
 
-I use a SSH [command line sensor](https://www.home-assistant.io/integrations/command_line/#sensor) to send data to the persistant notification.
+SSH [command line sensor](https://www.home-assistant.io/integrations/command_line/#sensor) to send data to the persistant notification.
 
 This isn't strictly required.
 
