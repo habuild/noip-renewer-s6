@@ -5,19 +5,16 @@
 
 # hadolint ignore=DL3006
 # Use base Home Assistant container
-ARG BUILD_FROM=ghcr.io/home-assistant/base:latest 
-FROM ${BUILD_FROM}
+FROM ghcr.io/home-assistant/base:latest 
 
 # hadolint ignore=DL3007
 # Add Simoa's if he updates the renew.py or habuild renew.py docker container.
 FROM docker.io/simaofsilva/noip-renewer:latest AS builder
 
-WORKDIR /app
 
-# Copy addon root filesystem and then set permissions of all files. 
+# Copy addon root filesystem and then s6 and apparmor.txt should set permissions of all files. 
 COPY rootfs /
 
-RUN chmod -Rv a+x /app/**
 
 #ENV NO_IP_USERNAME="Email" \
 #    NO_IP_PASSWORD="Password" \
@@ -47,9 +44,9 @@ LABEL \
     org.opencontainers.image.vendor="Hasqt" \
     org.opencontainers.image.authors="Hasqt <https://community.home-assistant.io/u/hasqt>" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-ha" \
+    org.opencontainers.image.url="https://github.com/habuild/noip-renewer-ha/tree/main/noip-renewer-s6" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/noip-renewer-ha/README.md" \
+    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/tree/main/noip-renewer-s6/README.md" \
     org.opencontainers.image.created="${BUILD_DATE}" \
     org.opencontainers.image.revision="${BUILD_REF}" \
     org.opencontainers.image.version="${BUILD_VERSION}"
