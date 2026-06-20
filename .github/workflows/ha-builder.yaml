@@ -53,8 +53,8 @@ jobs:
       - name: Build image
         uses: home-assistant/builder/actions/build-image@2026.06.0
         with:
-          # context: ./noip-renewer-s6   ### repo folder
-          # file: ./noip-renewer-s6/Dockerfile  ### App/Addon folder
+          context: ./noip-renewer-s6   ### repo folder
+          file: ./noip-renewer-s6/Dockerfile  ### App/Addon folder
           arch: ${{ matrix.arch }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
           image: ${{ matrix.image }}
