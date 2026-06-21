@@ -1,0 +1,3 @@
+[submodule "noip-renewer-ha"]
+	path = noip-renewer-ha
+	url = https://github.com/habuild/noip-renewer-ha
